@@ -32,6 +32,37 @@ MANIFEST
 *.manifest
 *.spec
 
+# Terraform
+**/.terraform/
+**/*.tfstate
+**/*.tfstate.*
+**/.terraform.lock.hcl
+**/*.tfvars.local
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Jupyter & Notebooks
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Docker
+docker/.venv/
+docker/venv/
+
+# Airflow local
+docker/airflow_container/logs/
+docker/airflow_container/plugins/
+docker/airflow_container/dags/__pycache__/
+
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
