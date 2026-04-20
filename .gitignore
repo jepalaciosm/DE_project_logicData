@@ -44,16 +44,6 @@ override.tf.json
 *_override.tf
 *_override.tf.json
 
-# Jupyter & Notebooks
-.ipynb_checkpoints/
-*/.ipynb_checkpoints/
-*.ipynb_checkpoints
-
-# Testing
-.pytest_cache/
-.coverage
-htmlcov/
-
 # Docker
 docker/.venv/
 docker/venv/
@@ -236,5 +226,8 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+<<<<<<< HEAD
 
 .terraform/
+=======
+>>>>>>> 59d4e7311a0cb8cecc24820bb8c73c1939f3f927
