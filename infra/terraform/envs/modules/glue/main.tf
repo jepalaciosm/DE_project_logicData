@@ -9,8 +9,8 @@ resource "aws_glue_job" "catalogo_etl" {
 
 
   default_arguments = {
-    "--input_path"  = "s3://${var.bronze_bucket}/catalogo.csv"
-    "--output_path" = "s3://${var.silver_bucket}/catalogo/"
+    "--input_path"  = "s3://${var.bronze_bucket}/"
+    "--output_path" = "s3://${var.silver_bucket}/"
     "--TempDir"     = "s3://${var.temp_bucket}/temp/"
   }
 
@@ -36,9 +36,9 @@ resource "aws_glue_job" "catalogo_etl_broze_silver" {
 
 
   default_arguments = {
-    "--input_path"  = "s3://${var.bronze_bucket}/catalogo.csv"
-    "--output_path" = "s3://${var.silver_bucket}/catalogo/"
-    "--quarantine_path" = "s3://${var.quarantine_bucket}/catalogo/"
+    "--input_path"  = "s3://${var.bronze_bucket}/"
+    "--output_path" = "s3://${var.silver_bucket}/"
+    "--quarantine_path" = "s3://${var.quarantine_bucket}/"
     "--TempDir"     = "s3://${var.temp_bucket}/temp/"
     # --- INSTALACIÓN DE GREAT EXPECTATIONS ---
     # Se recomienda forzar typing_extensions para evitar conflictos de versiones en Glue
