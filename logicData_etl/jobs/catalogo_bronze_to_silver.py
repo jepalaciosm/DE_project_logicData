@@ -44,6 +44,42 @@ ENTITY_CONFIGS = {
         "null_check_fields": ["id_cliente", "nombre"],
         "enum_fields": {},
         "range_fields": {}
+    },
+    "pedidos": {
+        "entity_name": "Pedidos",
+        "schema": StructType([
+            StructField("id_pedido", StringType(), True),
+            StructField("id_cliente", StringType(), True),
+            StructField("id_producto", StringType(), True),
+            StructField("fecha", StringType(), True), # Se puede transformar a Timestamp después
+            StructField("monto", DoubleType(), True),
+            StructField("estado", StringType(), True),
+        ]),
+        "primary_key": "id_pedido",
+        "null_check_fields": ["id_pedido", "id_cliente", "id_producto"],
+        "enum_fields": {
+            "estado": ["CREADO", "EN_DESPACHO", "ENTREGADO", "CANCELADO"]
+        },
+        "range_fields": {
+            "monto": {"min": 0.0, "max": 1000000.0}
+        }
+    },
+    "entregas": {
+        "entity_name": "Entregas",
+        "schema": StructType([
+            StructField("id_pedido", StringType(), True),
+            StructField("hora_programada", StringType(), True),
+            StructField("hora_real", StringType(), True),
+            StructField("zona", StringType(), True),
+            StructField("conductor", StringType(), True),
+            StructField("vehiculo", StringType(), True),
+        ]),
+        "primary_key": "id_pedido",
+        "null_check_fields": ["id_pedido", "conductor"],
+        "enum_fields": {
+            "zona": ["Norte", "Sur", "Oriente", "Occidente", "Centro"]
+        },
+        "range_fields": {}
     }
 }
 
@@ -210,6 +246,14 @@ def clientes_bronze_to_silver():
     """Procesa datos de clientes de Bronze a Silver."""
     bronze_to_silver("clientes")
 
+def pedidos_bronze_to_silver():
+    """Procesa datos de pedidos de Bronze a Silver."""
+    bronze_to_silver("pedidos")
+
+def entregas_bronze_to_silver():
+    """Procesa datos de entregas de Bronze a Silver."""
+    bronze_to_silver("entregas")
+
 
 if __name__ == "__main__":
     # Determinar qué entidad procesar según parámetro
@@ -218,3 +262,5 @@ if __name__ == "__main__":
     # bronze_to_silver(entity)
     catalogo_bronze_to_silver()
     clientes_bronze_to_silver()
+    pedidos_bronze_to_silver()
+    entregas_bronze_to_silver()
