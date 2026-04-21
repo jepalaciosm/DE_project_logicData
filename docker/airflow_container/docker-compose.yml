@@ -114,7 +114,10 @@
   
     airflow-webserver:
       <<: *airflow-common
-      command: webserver
+      command: bash -c "rm -f /opt/airflow/airflow-webserver.pid && exec airflow webserver"
+      environment:
+        <<: *airflow-common-env
+        AIRFLOW__WEBSERVER__GUNICORN_CMD_ARGS: "--timeout 300 --workers 2 --log-level debug"
       ports:
         - "8080:8080"
       healthcheck:
