@@ -33,7 +33,9 @@ resource "aws_iam_policy" "glue_s3_policy" {
           "arn:aws:s3:::${var.bronze_bucket}/*",
           "arn:aws:s3:::${var.quarantine_bucket}",
           "arn:aws:s3:::${var.quarantine_bucket}/*",
-          "arn:aws:s3:::${var.silver_bucket}/*"
+          "arn:aws:s3:::${var.silver_bucket}",
+          "arn:aws:s3:::${var.silver_bucket}/*",
+          "arn:aws:s3:::${var.gold_bucket}/*",
         ]
       },
       {
@@ -42,6 +44,7 @@ resource "aws_iam_policy" "glue_s3_policy" {
           "s3:PutObject"
         ]
         Resource = [
+          "arn:aws:s3:::${var.gold_bucket}/*",
           "arn:aws:s3:::${var.silver_bucket}/*",
           "arn:aws:s3:::${var.quarantine_bucket}/*"
         ]
