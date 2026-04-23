@@ -58,6 +58,18 @@ resource "aws_iam_policy" "glue_s3_policy" {
         Resource = [
           "arn:aws:s3:::${var.temp_bucket}/*"
         ]
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "glue:GetDatabase",
+          "glue:GetTable",
+          "glue:CreateTable",
+          "glue:UpdateTable",
+          "glue:BatchGetPartition",
+          "glue:GetPartitions"
+        ]
+        Resource = ["arn:aws:s3:::${var.gold_bucket}/*"] 
       }
     ]
   })

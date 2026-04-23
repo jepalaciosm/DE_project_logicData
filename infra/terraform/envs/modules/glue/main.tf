@@ -97,3 +97,26 @@ resource "aws_glue_job" "etl_silver_gold" {
 
   tags = var.tags
 }
+
+# Crear la base de datos en el Catálogo
+resource "aws_glue_catalog_database" "gold_db" {
+  name = "logidata_gold_db"
+}
+
+# Crawler para registrar las tablas de la capa Gold
+resource "aws_glue_crawler" "gold_crawler" {
+  database_name = aws_glue_catalog_database.gold_db.name
+  name          = "logidata_gold_crawler"
+  role          = var.glue_role_arn
+
+  # Configuración para que entienda el formato Delta
+  delta_target {
+    delta_tables = ["s3://${var.gold_bucket}/resumen_operativo/"]
+    write_manifest = false
+    create_native_delta_table = true
+  }
+  schema_change_policy {
+    delete_behavior = "LOG"
+    update_behavior = "UPDATE_IN_DATABASE"
+  }
+}
